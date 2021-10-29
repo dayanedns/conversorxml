@@ -36,6 +36,16 @@ app.get('/api/hello', (request, response)=>{
   })
 })
 
+app.post('/api/cpf', (request, response)=>{
+  const { cpf } = request.body
+
+  // Grava na base o cpf capturado na requisição
+
+  return response.json({
+    cpf
+  })
+})
+
 app.listen(8080, function(){
   console.log("Servidor rodando url http://localhost:8080");
 });
