@@ -1,7 +1,7 @@
 const express = require ('express');
 const app = express();
 
- app.get("/", function(req, res){
+app.get("/", function(req, res){
   res.sendFile(__dirname + "/index.html");
 });
 
@@ -15,6 +15,8 @@ app.get("/index.js", function(req, res){
 app.get("/bundle.js", function(req, res){
   res.sendFile(__dirname + "/bundle.js");
 });
- app.listen(8081, function(){
-  console.log("Servidor rodando url http://localhost:8081");
+
+
+app.listen(8080, function(){
+  console.log("Servidor rodando url http://localhost:8080");
 });
