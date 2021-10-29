@@ -24,3 +24,6 @@ app.listen(port, function(){
 
 O efeito é o mesmo, porém fica mais organizado, e mais fácil de manter.
 
+- Criar `README.md` do projeto
+- Usar estrutura de controller
+- Usar um ORM ([sequelize](https://sequelize.org/master/) por exemplo) para manipular a base de dados
