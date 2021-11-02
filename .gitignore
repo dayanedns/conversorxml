@@ -1,0 +1,6 @@
+# Adiciona node_modules nos arquivos ignorados
+node_modules
+
+# Ignorar arquivos de variáveis de ambiente
+
+**.env
