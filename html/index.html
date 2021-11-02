@@ -2,306 +2,305 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-   <!-- <script type="module" src="index2.js"></script>-->
-    <script type="module" src="dbBanco.js"></script>
-    <script data-main="scripts/app" src="bundle.js"></script>
-   <!-- <script data-main="scripts/app" src="require.js"></script>-->
-    <title>Conversor XML</title>
-    <style type="text/css">
-        #filecontents {
-            border: 0;
-            overflow-y: scroll;
-            height: 1px;
-        }
-       /* .label-float {
-  width: 50%;
-  padding-left: 15px;
-  margin-left: 15px;
-  float:left;
-}*/
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<!-- <script type="module" src="index2.js"></script>-->
+	<script type="module" src="dbBanco.js"></script>
+	<script data-main="scripts/app" src="bundle.js"></script>
+	<!-- <script data-main="scripts/app" src="require.js"></script>-->
+	<title>Conversor XML</title>
+	<style type="text/css">
+		#filecontents {
+			border: 0;
+			overflow-y: scroll;
+			height: 1px;
+		}
 
-    </style>
+		/* .label-float {
+	width: 50%;
+	padding-left: 15px;
+	margin-left: 15px;
+	float:left;
+}*/
+	</style>
 </head>
 <script>
 
 </script>
+
 <body>
-  <h4>Cod. Consulta</h4>
-  <input type="text" value="000001" id="codConsulta" name="codConsulta">
+	<h4>Cod. Consulta</h4>
+	<input type="text" value="000001" id="codConsulta" name="codConsulta">
 
-    <h4>Apto?</h4>
-    <input type="radio" value="1" id="opApto" name="op">Apto
-    <input type="radio" value="2" id="opInapto" name="op">Inapto
-    <input type="radio" value="3" id="opRestri" name="op">Apto com Restrição
-    <input type="radio" value="4" id="opPendente" name="op">Pendente
+	<h4>Apto?</h4>
+	<input type="radio" value="1" id="opApto" name="op">Apto
+	<input type="radio" value="2" id="opInapto" name="op">Inapto
+	<input type="radio" value="3" id="opRestri" name="op">Apto com Restrição
+	<input type="radio" value="4" id="opPendente" name="op">Pendente
 
-    <label for="browser"><h4>Cod. Clinica</h4></label>
-    <input list="browsers" name="browser" id="codclinica">
-    <datalist id="codclinica">
-      <option value="">
-         </datalist>
+	<label for="browser">
+		<h4>Cod. Clinica</h4>
+	</label>
+	<input list="browsers" name="browser" id="codclinica">
+	<datalist id="codclinica">
+		<option value="">
+	</datalist>
 
-    <label for="browser"><h4>Exames</h4></label>
-    <input list="browsers" name="browser" id="exames">
-    <datalist id="exames">
-      <option value="">
-         </datalist>
-    <label for="browser"><h4>Cod.Tipo de Consulta</h4></label>
-   <input list="browsers" name="browser" id="browser">
-    <datalist id="browsers">
-    <option value="01 - Admissional">
-    <option value="02 - Periodico">
-    <option value="03 - Demissional">
-    <option value="04 - Mudança de função">
-    <option value="05 - Retorno ao Trabalho">
-    <option value="06 - Mudança de contrato">    
-    </option>
-  </datalist>
-  <input type="submit" onclick="capturar()" value="Confirmar">
-  <br><br>
- 
- 
-  <input type="hidden" value="" id="codPessoa" name="codPessoa">
-   <input type="hidden" value="" id="matricula" name="matricula">
-    <input type="hidden" value="" id="dtAso" name="dtAso">
-    <input type="hidden" value="" id="nrCRM" name="nrCRM">
-    <input type="hidden" value="" id="cpfTrab" name="cpfTrab">
-    
-<br><br><br>
-    Por favor selecione arquivo XML:
-    <input type="file" id="xmlfile" /><br />
-    <div></div>
-    <div id="filecontents"> </div>
-<br><br>
-<footer>
-<form onsubmit="download(this['name'].value, this['text'].value)">
-    <input type="hidden" name="name" value="test.xml">
-    <textarea name="text" id="txtArea"></textarea>
-    <input type="submit" value="Download">
-  </form>
-</footer>
-<br><br>
+	<label for="browser">
+		<h4>Exames</h4>
+	</label>
+	<input list="browsers" name="browser" id="exames">
+	<datalist id="exames">
+		<option value="">
+	</datalist>
+	<label for="browser">
+		<h4>Cod.Tipo de Consulta</h4>
+	</label>
+	<input list="browsers" name="browser" id="browser">
+	<datalist id="browsers">
+		<option value="01 - Admissional">
+		<option value="02 - Periodico">
+		<option value="03 - Demissional">
+		<option value="04 - Mudança de função">
+		<option value="05 - Retorno ao Trabalho">
+		<option value="06 - Mudança de contrato">
+		</option>
+	</datalist>
+	<input type="submit" onclick="capturar()" value="Confirmar">
+	<br><br>
 
-<br><br><br><br>
-<script>
 
-//funcao para download do arquivo
-var xmlTotvs = ""
-function capExame(varTag, value, index){
-  // Cria padrão usando expressão regular (para capturar tag que é passada)
-  var pattern = new RegExp(`(\<${varTag}\>)[^<>]{0,}(\<\/${varTag}\>)`, 'g')
-  // Cria variável de controle no loop da função de replace
-  n = 0
-  document.getElementById('txtArea').value = document
-  .getElementById('txtArea')
-  .value.replace(pattern, (match, replace1, replace2)=>{
-    // Incrementa variável de controle do loop
-    n++
-    return (n == index) ? replace1+value+replace2 : match
-  })
-}
+	<input type="hidden" value="" id="codPessoa" name="codPessoa">
+	<input type="hidden" value="" id="matricula" name="matricula">
+	<input type="hidden" value="" id="dtAso" name="dtAso">
+	<input type="hidden" value="" id="nrCRM" name="nrCRM">
+	<input type="hidden" value="" id="cpfTrab" name="cpfTrab">
 
-function download(filename, text) {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-  
-    element.style.display = 'none';
-    document.body.appendChild(element);
-  
-    element.click();
-  
-    document.body.removeChild(element);
-  }
+	<br><br><br>
+	Por favor selecione arquivo XML:
+	<input type="file" id="xmlfile" /><br />
+	<div></div>
+	<div id="filecontents"> </div>
+	<br><br>
+	<footer>
+		<form onsubmit="download(this['name'].value, this['text'].value)">
+			<input type="hidden" name="name" value="test.xml">
+			<textarea name="text" id="txtArea"></textarea>
+			<input type="submit" value="Download">
+		</form>
+	</footer>
+	<br><br>
 
-   //funcao para ler o xml
-   var text, parser, xmldoc;
-   window.onload = function () {
-       //Check the support for the File API support
-       if (window.File && window.FileReader && window.FileList && window.Blob) {
-           var fileSelected = document.getElementById('xmlfile');
+	<br><br><br><br>
+	<script>
 
-           let xmlContent = '';
-           console.log(fileSelected.files)
-           fileSelected.addEventListener('change', function (e) {
-               //Set the extension for the file
-               var fileExtension = /xml.*/;
-               //Get the file object
-             var fileTobeRead = fileSelected.files[0];
+		//funcao para download do arquivo
+		var xmlTotvs = ""
+		function capExame(varTag, value, index) {
+			// Cria padrão usando expressão regular (para capturar tag que é passada)
+			var pattern = new RegExp(`(\<${varTag}\>)[^<>]{0,}(\<\/${varTag}\>)`, 'g')
+			// Cria variável de controle no loop da função de replace
+			n = 0
+			document.getElementById('txtArea').value = document
+				.getElementById('txtArea')
+				.value.replace(pattern, (match, replace1, replace2) => {
+					// Incrementa variável de controle do loop
+					n++
+					return (n == index) ? replace1 + value + replace2 : match
+				})
+		}
 
-               //Check of the extension match
-               if (fileTobeRead.type.match(fileExtension)) {
-                   //Initialize the FileReader object to read the 2file
-                   var fileReader = new FileReader();
-                   
-                   fileReader.onload = function (e) {
-                       var fileContents = document.getElementById('filecontents');
-                       fileContents.innerText = fileReader.result;
-                       text = fileReader.result;
+		function download(filename, text) {
+			var element = document.createElement('a');
+			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			element.setAttribute('download', filename);
 
-                       parser = new DOMParser();
-                       xmldoc = parser.parseFromString(text, "text/xml");
+			element.style.display = 'none';
+			document.body.appendChild(element);
 
-                       let dadosDtAso= xmldoc.querySelectorAll("dtAso");
-                    let resultDtAso =   document.getElementById("dtAso").value = dadosDtAso[0].innerHTML;
-                    let dadosNrCRM= xmldoc.querySelectorAll("nrCRM");
-                     let resultCodMed =  document.getElementById("nrCRM").value = dadosNrCRM[0].innerHTML;
+			element.click();
 
-                       let dtExm = xmldoc.querySelectorAll("dtExm");
-                       let i;
-                       let procRealizado = xmldoc.querySelectorAll("procRealizado");
+			document.body.removeChild(element);
+		}
 
-                       xmlTotvs = '<?xml version="1.0" encoding="ISO-8859-1" ?>'+
-                       "<REGISTRO>"+
-                       "<CONSULTA>"+
-                       "<IDCONSULTA></IDCONSULTA>"+
-                       "<CODENTIDADE></CODENTIDADE>"+
-                       "<CODCONSULTA>"+capCodConsulta+"</CODCONSULTA>"+
-                       "<CODPESSOA></CODPESSOA>"+
-                       "<CHAPA></CHAPA>"+
-                       "<CODMEDICO>"+ resultCodMed +"</CODMEDICO>"+
-                       "<CODTIPOCONSULTA>"+capCodCons+"</CODTIPOCONSULTA>"+
-                       "<CODTIPOCONSULTAESOCIAL>"+codTpEsocial+"</CODTIPOCONSULTAESOCIAL>"+
-                       "<DATACONSULTA>"+resultDtAso+"</DATACONSULTA>"+
-                       "<APTO>"+capApto+"</APTO>"+
-                       "<DATAASO>"+resultDtAso+"</DATAASO>"+
-                       "<OBSERVACAO></OBSERVACAO>"+
-                       "</CONSULTA>"
+		//funcao para ler o xml
+		var text, parser, xmldoc;
+		window.onload = function () {
+			//Check the support for the File API support
+			if (window.File && window.FileReader && window.FileList && window.Blob) {
+				var fileSelected = document.getElementById('xmlfile');
 
-                       var aux = "";
-                       let resultProcRealiz,resultDtExm,xmlResultTotvs;
-                       for (i = 0; i < dtExm.length; i++) {
-                      
-                        var txtExm = document.createElement("text");
-                        txtExm.innerHTML = '<div class=label-float><h4>Exame '+(i+1)+'</h4></div>';
-                        document.body.appendChild(txtExm);
-                        var inputExm = document.createElement("text");
-                        inputExm.innerHTML = '<input type=text id=iexm' + i +'>';
-                        inputExm.addEventListener('keyup', (event, index = i) => {
-                          capExame('EXAME', event.target.value, index)
-                        } )
-                        document.body.appendChild(inputExm);
-                      var resultIexm =  document.getElementById('iexm'+ i)
-                         console.log(resultIexm.value)
-                        
+				let xmlContent = '';
+				console.log(fileSelected.files)
+				fileSelected.addEventListener('change', function (e) {
+					//Set the extension for the file
+					var fileExtension = /xml.*/;
+					//Get the file object
+					var fileTobeRead = fileSelected.files[0];
 
-                        var input = document.createElement("text");
-                           input.innerHTML = '<input type=hidden id=exm' + i +'>';
-                           document.body.appendChild(input);
-                            resultDtExm =  document.getElementById('exm'+ i).value = dtExm[i].innerHTML;
+					//Check of the extension match
+					if (fileTobeRead.type.match(fileExtension)) {
+						//Initialize the FileReader object to read the 2file
+						var fileReader = new FileReader();
 
-                          var inputProc = document.createElement("text");
-                          inputProc.innerHTML = '<input type=hidden id=procRealizado' + i +'>';
-                           document.body.appendChild(inputProc);
-                           resultProcRealiz= document.getElementById('procRealizado'+ i).value = procRealizado[i].innerHTML;
-                           
-                        xmlResultTotvs =  "<RESULTADO>"+
-                       "<IDCONSULTA></IDCONSULTA>"+
-                       "<CODCONSULTA>"+capCodConsulta+"</CODCONSULTA>"+
-                       "<EXAME></EXAME>"+
-                       "<TIPOEXAME></TIPOEXAME>"+
-                       "<CID></CID>"+
-                       "<CODENTIDADE></CODENTIDADE>"+
-                       "<DATAEXAME>"+resultDtExm+"</DATAEXAME>"+
-                       "<EXAMEREFERENCIAL></EXAMEREFERENCIAL>"+
-                       "<ATIVOOCUPACIONAL></ATIVOOCUPACIONAL>"+
-                       "<RESULTNORMAL></RESULTNORMAL>"+
-                       "<TIPOANORMALIDADE></TIPOANORMALIDADE>"+
-                       "<APTO></APTO>"+
-                       "<DESCANORMAL></DESCANORMAL>"+
-                       "<OBSERVACAO></OBSERVACAO>"+
-                       "<CODLAUDOEXAME></CODLAUDOEXAME>"+
-                       "<CODPROCEDMENTO>"+resultProcRealiz+"</CODPROCEDMENTO>"+
-                       "<CAMPOTEXTOLONGO></CAMPOTEXTOLONGO>"+
-                       "<CAMPONUMERICO></CAMPONUMERICO>"+
-                       "<CAMPOTEXTO></CAMPOTEXTO>"+
-                       "<CAMPOTABDINAM></CAMPOTABDINAM>"+
-                       "</RESULTADO>"
-                       
+						fileReader.onload = function (e) {
+							var fileContents = document.getElementById('filecontents');
+							fileContents.innerText = fileReader.result;
+							text = fileReader.result;
 
-                      aux = aux+xmlResultTotvs;
-                       }           
-                      /* input.innerHTML = ' <input type="submit" onclick="capturar2()" value="Confirmar">'
-                       document.getElementById('txtArea').value = xmlTotvs+aux;*/
-                      let   dadosCPF= xmldoc.querySelectorAll("cpfTrab");
-       var queryCPF =  document.getElementById("cpfTrab").value = dadosCPF[0].innerHTML
-       
-var registro = "</REGISTRO>"
-                 /*     fetch(`/api/cpf/${queryCPF}`)
-                      .then(response => response.json())
-                      .then(json=>{
-                          xmlTotvs = xmlTotvs.replace(/(\<CHAPA\>)(\<\/CHAPA\>)/g, `$1${json.chapa}$2`)
-                          xmlTotvs = xmlTotvs.replace(/(\<CODPESSOA\>)(\<\/CODPESSOA\>)/g, `$1${json.codpessoa}$2`)
-                          document.getElementById('txtArea').value = xmlTotvs+aux;
-                      })*/
+							parser = new DOMParser();
+							xmldoc = parser.parseFromString(text, "text/xml");
 
-                      fetch(`/api/cpf/${queryCPF}`)
-                        .then(response => response.json())
-                        .then(json=>{
-                            xmlTotvs = xmlTotvs.replace(/(\<CHAPA\>)(\<\/CHAPA\>)/g, `$1${json.chapa}$2`)
-                            xmlTotvs = xmlTotvs.replace(/(\<CODPESSOA\>)(\<\/CODPESSOA\>)/g, `$1${json.codpessoa}$2`)
-                            document.getElementById('txtArea').value = xmlTotvs+aux+registro;
-                        })
-                     
-                    
-                }
-               
-                       fileReader.readAsText(fileTobeRead);         
-           }
-               else {
-                       alert("Por favor selecione arquivo texto");
-                   }
+							let dadosDtAso = xmldoc.querySelectorAll("dtAso");
+							let resultDtAso = document.getElementById("dtAso").value = dadosDtAso[0].innerHTML;
+							let dadosNrCRM = xmldoc.querySelectorAll("nrCRM");
+							let resultCodMed = document.getElementById("nrCRM").value = dadosNrCRM[0].innerHTML;
 
-               }, false);
-       }
-       else {
-           alert("Arquivo(s) não suportado(s)");
-       }
-   
-      
-      }
-        //funcao para captura dos dados
-  let codTpEsocial, capCodCons = "", capApto = "", capCodConsulta="" ;
-  
-  function capturar () {
+							let dtExm = xmldoc.querySelectorAll("dtExm");
+							let i;
+							let procRealizado = xmldoc.querySelectorAll("procRealizado");
 
-      capCodConsulta = document.getElementById('codConsulta').value;
-      capApto = document.querySelector('input[name=op]:checked').value;
-      
-      capCodCons = document.getElementById('browser').value;
-      if (capCodCons == "01 - Admissional"){
-          capCodCons = "01";
-          codTpEsocial = "A";
-      }else 
-      if (capCodCons == "02 - Periodico"){
-          capCodCons = "02";
-          codTpEsocial = "P";
-      }else
-      if (capCodCons == "03 - Demissional"){
-          capCodCons = "03";
-          codTpEsocial = "D";
-      }else
-      if (capCodCons == "04 - Mudança de função"){
-          capCodCons = "04";
-          codTpEsocial = "M";
-      }else
-      if (capCodCons == "05 - Retorno ao Trabalho"){
-          capCodCons = "05";
-          codTpEsocial = "R";
-       } else
-      if (capCodCons == "06 - Mudança de contrato"){
-          capCodCons = "06";
-          codTpEsocial = "M";
-      }
-    
-  }
+							xmlTotvs = '<?xml version="1.0" encoding="ISO-8859-1" ?>' +
+								"<REGISTRO>" +
+								"<CONSULTA>" +
+								"<IDCONSULTA></IDCONSULTA>" +
+								"<CODENTIDADE></CODENTIDADE>" +
+								"<CODCONSULTA>" + capCodConsulta + "</CODCONSULTA>" +
+								"<CODPESSOA></CODPESSOA>" +
+								"<CHAPA></CHAPA>" +
+								"<CODMEDICO>" + resultCodMed + "</CODMEDICO>" +
+								"<CODTIPOCONSULTA>" + capCodCons + "</CODTIPOCONSULTA>" +
+								"<CODTIPOCONSULTAESOCIAL>" + codTpEsocial + "</CODTIPOCONSULTAESOCIAL>" +
+								"<DATACONSULTA>" + resultDtAso + "</DATACONSULTA>" +
+								"<APTO>" + capApto + "</APTO>" +
+								"<DATAASO>" + resultDtAso + "</DATAASO>" +
+								"<OBSERVACAO></OBSERVACAO>" +
+								"</CONSULTA>"
 
-</script> <!--<form method="get" action="xml">
-    <button type="submit" download=>GERAR XML TOTVS</button>
+							var aux = "";
+							let resultProcRealiz, resultDtExm, xmlResultTotvs;
+							for (i = 0; i < dtExm.length; i++) {
 
-    <a href="xml" download=".xml">Download</a>
+								var txtExm = document.createElement("text");
+								txtExm.innerHTML = '<div class=label-float><h4>Exame ' + (i + 1) + '</h4></div>';
+								document.body.appendChild(txtExm);
+								var inputExm = document.createElement("text");
+								inputExm.innerHTML = '<input type=text id=iexm' + i + '>';
+								inputExm.addEventListener('keyup', (event, index = i) => {
+									capExame('EXAME', event.target.value, index)
+								})
+								document.body.appendChild(inputExm);
+								var resultIexm = document.getElementById('iexm' + i)
+								console.log(resultIexm.value)
+
+
+								var input = document.createElement("text");
+								input.innerHTML = '<input type=hidden id=exm' + i + '>';
+								document.body.appendChild(input);
+								resultDtExm = document.getElementById('exm' + i).value = dtExm[i].innerHTML;
+
+								var inputProc = document.createElement("text");
+								inputProc.innerHTML = '<input type=hidden id=procRealizado' + i + '>';
+								document.body.appendChild(inputProc);
+								resultProcRealiz = document.getElementById('procRealizado' + i).value = procRealizado[i].innerHTML;
+
+								xmlResultTotvs = "<RESULTADO>" +
+									"<IDCONSULTA></IDCONSULTA>" +
+									"<CODCONSULTA>" + capCodConsulta + "</CODCONSULTA>" +
+									"<EXAME></EXAME>" +
+									"<TIPOEXAME></TIPOEXAME>" +
+									"<CID></CID>" +
+									"<CODENTIDADE></CODENTIDADE>" +
+									"<DATAEXAME>" + resultDtExm + "</DATAEXAME>" +
+									"<EXAMEREFERENCIAL></EXAMEREFERENCIAL>" +
+									"<ATIVOOCUPACIONAL></ATIVOOCUPACIONAL>" +
+									"<RESULTNORMAL></RESULTNORMAL>" +
+									"<TIPOANORMALIDADE></TIPOANORMALIDADE>" +
+									"<APTO></APTO>" +
+									"<DESCANORMAL></DESCANORMAL>" +
+									"<OBSERVACAO></OBSERVACAO>" +
+									"<CODLAUDOEXAME></CODLAUDOEXAME>" +
+									"<CODPROCEDMENTO>" + resultProcRealiz + "</CODPROCEDMENTO>" +
+									"<CAMPOTEXTOLONGO></CAMPOTEXTOLONGO>" +
+									"<CAMPONUMERICO></CAMPONUMERICO>" +
+									"<CAMPOTEXTO></CAMPOTEXTO>" +
+									"<CAMPOTABDINAM></CAMPOTABDINAM>" +
+									"</RESULTADO>"
+
+
+								aux = aux + xmlResultTotvs;
+							}
+							let dadosCPF = xmldoc.querySelectorAll("cpfTrab");
+							var queryCPF = document.getElementById("cpfTrab").value = dadosCPF[0].innerHTML
+
+							var registro = "</REGISTRO>"
+
+							fetch(`/api/cpf/${queryCPF}`)
+								.then(response => response.json())
+								.then(json => {
+									xmlTotvs = xmlTotvs.replace(/(\<CHAPA\>)(\<\/CHAPA\>)/g, `$1${json.chapa}$2`)
+									xmlTotvs = xmlTotvs.replace(/(\<CODPESSOA\>)(\<\/CODPESSOA\>)/g, `$1${json.codpessoa}$2`)
+									document.getElementById('txtArea').value = xmlTotvs + aux + registro;
+								})
+
+
+						}
+
+						fileReader.readAsText(fileTobeRead);
+					}
+					else {
+						alert("Por favor selecione arquivo texto");
+					}
+
+				}, false);
+			}
+			else {
+				alert("Arquivo(s) não suportado(s)");
+			}
+
+
+		}
+		//funcao para captura dos dados
+		let codTpEsocial, capCodCons = "", capApto = "", capCodConsulta = "";
+
+		function capturar() {
+
+			capCodConsulta = document.getElementById('codConsulta').value;
+			capApto = document.querySelector('input[name=op]:checked').value;
+
+			capCodCons = document.getElementById('browser').value;
+			if (capCodCons == "01 - Admissional") {
+				capCodCons = "01";
+				codTpEsocial = "A";
+			} else
+				if (capCodCons == "02 - Periodico") {
+					capCodCons = "02";
+					codTpEsocial = "P";
+				} else
+					if (capCodCons == "03 - Demissional") {
+						capCodCons = "03";
+						codTpEsocial = "D";
+					} else
+						if (capCodCons == "04 - Mudança de função") {
+							capCodCons = "04";
+							codTpEsocial = "M";
+						} else
+							if (capCodCons == "05 - Retorno ao Trabalho") {
+								capCodCons = "05";
+								codTpEsocial = "R";
+							} else
+								if (capCodCons == "06 - Mudança de contrato") {
+									capCodCons = "06";
+									codTpEsocial = "M";
+								}
+
+		}
+
+	</script>
+	<!--<form method="get" action="xml">
+		<button type="submit" download=>GERAR XML TOTVS</button>
+
+		<a href="xml" download=".xml">Download</a>
  </form>-->
 
 
