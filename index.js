@@ -173,9 +173,7 @@ function download(filename, text) {
                       let   dadosCPF= xmldoc.querySelectorAll("cpfTrab");
                       queryCPF =  document.getElementById("cpfTrab").value = dadosCPF[0].innerHTML;
                       
-                    //   module.exports = {
-                    //       queryCPF
-                    //   }
+                      export {queryCPF};
 
                       console.log(queryCPF)
                       
