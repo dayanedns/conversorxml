@@ -1,3 +1,4 @@
+// arquivo renomeado: rotas.js => app.js
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -8,20 +9,9 @@ app.use(cors())
 
 app.use(express.json())
 
-app.get("/", function (req, res) {
-	res.sendFile(__dirname + "/index.html");
-});
-
-app.get("/dbBanco.js", function (req, res) {
-	res.sendFile(__dirname + "/dbBanco.js");
-});
-app.get("/index.js", function (req, res) {
-	res.sendFile(__dirname + "/index.js");
-});
-
-app.get("/bundle.js", function (req, res) {
-	res.sendFile(__dirname + "/bundle.js");
-});
+// Serve todos os arquivos na pasta "html" usando express.static
+// Sintaxe: app.use('rota/principal/onde/vai/ser/servido', funcaoDaRota())
+app.use('/', express.static('../html/'))
 
 app.get("/api/cpf/:cpf", async function (request, response) {
 	const { cpf } = request.params
